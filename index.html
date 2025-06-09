@@ -2,11 +2,34 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pelacak Lokasi Adit</title>
 </head>
 <body>
-  <h1>Selamat datang di pelacak lokasi Adit</h1>
-  <p>Lokasi akan muncul di sini.</p>
+  <h1>Selamat datang di pelacakan lokasi Adit</h1>
+  <p>Lokasi akan muncul di sini:</p>
+  <p id="lokasi">Mendeteksi lokasi...</p>
+
+  <script>
+    if ('geolocation' in navigator) {
+      navigator.geolocation.watchPosition(
+        function(position) {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          document.getElementById('lokasi').textContent = `Latitude: ${latitude}, Longitude: ${longitude}`;
+        },
+        function(error) {
+          document.getElementById('lokasi').textContent = 'Gagal mendapatkan lokasi: ' + error.message;
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0
+        }
+      );
+    } else {
+      document.getElementById('lokasi').textContent = 'Geolocation tidak didukung oleh browser ini.';
+    }
+  </script>
 </body>
 </html>
+

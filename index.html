@@ -1,59 +1,64 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Pelacak Lokasi Adit</title>
+    <title>Pelacakan Lokasi Adit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
       #map {
-        height: 100vh;
+        height: 400px;
         width: 100%;
+        margin-top: 20px;
       }
     </style>
   </head>
   <body>
-    <h2 style="text-align:center;">Selamat datang di pelacakan lokasi Adit</h2>
+    <h1>Selamat datang di pelacakan lokasi Adit</h1>
+    <p>Lokasi kamu akan muncul di bawah ini:</p>
     <div id="map"></div>
 
     <script>
-      let map, userMarker;
-
       function initMap() {
-        map = new google.maps.Map(document.getElementById("map"), {
-          zoom: 15,
-          center: { lat: -6.2, lng: 106.8 }, // Default Jakarta
-        });
-
         if (navigator.geolocation) {
-          navigator.geolocation.watchPosition(
+          navigator.geolocation.getCurrentPosition(
             (position) => {
-              const pos = {
+              const userLocation = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude,
               };
 
-              map.setCenter(pos);
+              const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 15,
+                center: userLocation,
+              });
 
-              if (!userMarker) {
-                userMarker = new google.maps.Marker({
-                  position: pos,
-                  map: map,
-                  title: "Lokasi Kamu",
-                });
-              } else {
-                userMarker.setPosition(pos);
-              }
+              const marker = new google.maps.Marker({
+                position: userLocation,
+                map: map,
+                title: "Lokasi kamu",
+              });
             },
-            () => alert("Gagal mendapatkan lokasi.")
+            () => {
+              alert("Gagal mendapatkan lokasi.");
+            }
           );
         } else {
-          alert("Browser tidak mendukung pelacakan lokasi.");
+          alert("Browser tidak mendukung Geolocation.");
         }
       }
     </script>
 
-    <script async
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKryPD_XjiF-GMEB9YYUhjS5ian3COH-c"
-    </script>
+    <!-- Ganti API_KEY dengan kunci API Google Maps kamu -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKryPD_XjiF-GMEB9YYUhjS5ian3COH-c=initMap"
+      async
+      defer
+    ></script>
   </body>
 </html>
+
 
 

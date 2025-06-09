@@ -7,16 +7,17 @@
       body {
         font-family: Arial, sans-serif;
         text-align: center;
+        margin: 0;
+        padding: 0;
       }
       #map {
-        height: 400px;
+        height: 90vh;
         width: 100%;
-        margin-top: 20px;
       }
     </style>
   </head>
   <body>
-    <h1>Selamat datang di pelacakan lokasi Adit</h1>
+    <h2>Selamat datang di pelacakan lokasi Adit</h2>
     <p>Lokasi kamu akan muncul di bawah ini:</p>
     <div id="map"></div>
 
@@ -35,10 +36,10 @@
                 center: userLocation,
               });
 
-              const marker = new google.maps.Marker({
+              new google.maps.Marker({
                 position: userLocation,
                 map: map,
-                title: "Lokasi kamu",
+                title: "Lokasi Kamu",
               });
             },
             () => {
@@ -51,14 +52,10 @@
       }
     </script>
 
-    <!-- Ganti API_KEY dengan kunci API Google Maps kamu -->
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKryPD_XjiF-GMEB9YYUhjS5ian3COH-c=initMap"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKryPD_XjiF-GMEB9YYUhjS5ian3COH-c&callback=initMap"
       async
       defer
     ></script>
   </body>
 </html>
-
-
-
